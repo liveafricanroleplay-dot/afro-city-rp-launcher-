@@ -5,19 +5,22 @@ on:
   push:
     branches: [main]
     paths:
-      - 'package.json'
-      - 'yarn.lock'
-      - 'App.tsx'
-      - 'src/**'
-      - 'android/**'
+      - 'AFRO-MOBILE-source-for-github.zip'
       - '.github/workflows/android-build.yml'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source
+      - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Extract launcher source archive
+        run: |
+          test -f AFRO-MOBILE-source-for-github.zip
+          mkdir -p /tmp/afro-mobile-source
+          unzip -q AFRO-MOBILE-source-for-github.zip -d /tmp/afro-mobile-source
+          cp -a /tmp/afro-mobile-source/. .
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -35,7 +38,7 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Install Android NDK
-        run: sdkmanager "ndk;21.4.7075529"
+        run: sdkmanager "ndk;21.4.7075529" "build-tools;31.0.0" "platforms;android-33"
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
