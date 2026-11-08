@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'AFRO-MOBILE-source-for-github.zip'
+      - 'AFRO-MOBILE-GITHUB-ROOT-SOURCE.zip'
       - '.github/workflows/android-build.yml'
 
 jobs:
@@ -17,9 +17,9 @@ jobs:
 
       - name: Extract launcher source archive
         run: |
-          test -f AFRO-MOBILE-source-for-github.zip
+          test -f AFRO-MOBILE-GITHUB-ROOT-SOURCE.zip
           mkdir -p /tmp/afro-mobile-source
-          unzip -q AFRO-MOBILE-source-for-github.zip -d /tmp/afro-mobile-source
+          unzip -q AFRO-MOBILE-GITHUB-ROOT-SOURCE.zip -d /tmp/afro-mobile-source
           cp -a /tmp/afro-mobile-source/. .
 
       - name: Set up Node.js
